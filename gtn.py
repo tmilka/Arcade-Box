@@ -1,9 +1,7 @@
 import random
+from functions import Extra
 
-def guess_the_number(x):
-    
- #loop = "yes"
- #while loop == "yes":
+def guess_the_number(x,name):
     
     print("Lets play guess the number")
 
@@ -18,6 +16,7 @@ def guess_the_number(x):
 
         if guess == r_number:
             print(f"Congrats, the number is {r_number}")
+            Extra.scoreUp(name)
             break
         elif guess < r_number:
             print("Too low!")

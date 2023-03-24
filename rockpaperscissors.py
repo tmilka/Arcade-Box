@@ -1,9 +1,8 @@
 import random
+from functions import Extra
 
-def RockPaperScissors():
+def RockPaperScissors(name):
 
- loop = "yes"
- while loop == "yes":
     print('Lets play Rock Paper Scissors')
 
     r = 'rock'
@@ -28,11 +27,9 @@ def RockPaperScissors():
         print('Tie!')
     elif(user == r and computer == s) or (user == p and computer == r) or (user == s and computer == p):
         print('You won!')
+        print(name)
+        Extra.scoreUp(name)
     else:
         print('You lost!')
-    
-    print("You want to give it another try?")
-    loop = input("yes/no")
- else:
-    print("Allright, your choice...")
+
 

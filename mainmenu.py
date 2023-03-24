@@ -1,11 +1,12 @@
 import time
-
 from russianroulette import RussianRoulette
 from rockpaperscissors import RockPaperScissors
 from gtn import guess_the_number
-from tictactoe import Tictactoe
-from functions import Extra
-from ..FastAPI import Main
+from tictactoe import tictactoe
+from functions import Extra, Login
+from scoreboard import Scoreboard
+
+name = Login.intro()
 
 while True:
 
@@ -25,32 +26,31 @@ while True:
             - Rock Paper Scissor (2)
             - Guess the number (3)
             - Tictactoe (4)
-            - FastAPI (5)
+            - Scoreboard (5)
             - End Arcade Box (6)"""
     print(txt)
 
     option = input('            Chose your option: ')
 
-    if option == "1":
+    if option == "1": #finished
         print("Russian Roulette it is!")
-        Extra.repeat(RussianRoulette(),0)
+        Extra.repeat(RussianRoulette,name)
         Extra.wait(RussianRoulette)
     elif option == "2":
         print("Rock Paper Scissor it is!")
-        Extra.repeat(RockPaperScissors(), 0)
+        Extra.repeat(RockPaperScissors,name)
         time.sleep(2)
     elif option == "3":
         print("Guess the number it is!")
-        Extra.repeat(guess_the_number,100)
+        Extra.repeat(guess_the_number,100,name)
         time.sleep(2)
     elif option == "4":
         print("Tictactoe it is!")
-        Extra.repeat(Tictactoe(), 0)
+        Extra.repeat(tictactoe)
         time.sleep(2)
     elif option == "5":
-        print()
-        #print(Main.getPlayers())
+        print("Scoreboard it is!")
+        Scoreboard.main()
     elif option == "6":
         print("            See you again...")
         break
-

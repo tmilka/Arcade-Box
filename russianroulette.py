@@ -1,34 +1,27 @@
+import time
 import random
+from functions import Extra
 
-def RussianRoulette():
+def RussianRoulette(name):
 
- loop = "yes"
+    print("Welcome to Russian Roulette!")
 
- while loop == "yes":
+    y= int(input("How many bullets in the magazine: "))
+    x = random.randrange(1, y, 1)
+    bullet = random.randrange(1, y, 1)
+    
+    print("You load the bullet")
+    time.sleep(1)
+    print("You spin the chamber as fast as you can hopping to live till tomorow")
+    time.sleep(1)
+    print("You think over your live choices as it stops spinning...")
+    time.sleep(1)
+    print("You raise the gun to your head.")
 
-  spin = random.randint(1,6)
+    time.sleep(random.randrange(3,5))
 
-  bullets = int(input("Lade 1 bis 6 Kugeln in den Revolver!"))
-
-  print("You load the bullet")
-
-  print("You spin the chamber as fast as you can hopping to live till tomorow")
-
-  print("You think over your live choices as it stops spinning...")
-
-  print("You raise the gun to your head.")
-
-  spinner = random.randint(1,6)
-
-
-  if spinner == spin:
-    print("The gun goes off. You are dead.")
-
-  if spinner != spin:
-    print("The gun makes clicking noises redering you unharmed. You live to see another day!")
-  
-  print("You want to give it another try?")
-  loop = input("yes/no")
-
- else:
-  print("Allright, your choice...")
+    if x == bullet:
+        print("The gun goes off. You are dead.")
+    else:
+        print("The gun makes clicking noises redering you unharmed. You live to see another day!")
+        Extra.scoreUp(name)

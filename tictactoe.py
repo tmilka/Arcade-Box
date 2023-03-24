@@ -1,88 +1,44 @@
-import random
+import os
+from tictactoe_functions import draw_board, check_turns, check_for_win
 
-player = "X"
-computer = "O"
 
-winners = ((0,1,2), (3,4,5), (6,7,8), (0,3,6), (1,4,7), (2,5,8), (0,4,8), (2,4,6))
 
-class Tictactoe:
+def tictactoe():
 
-    def __init__(self):
-        self.board = [" "]*9
+    spots = {1 : "1", 2 : "2", 3 : "3", 4 : "4", 5 : "5", 6 : "6", 7 : "7", 8 : "8", 9 : "9"}
 
-    def print_board(self):
-        for i, val in enumerate(self.board):
-            end = " | "
-            if i == 2 or i == 5:
-                end = "\n----------\n"
-            elif i == 8:
-                end = "\n"
-            print(val, end=end)
+    playing = True
+    turn = 0
+    prev_turn = -1
+    complete = False
 
-    def can_move(self, move):
-        if move in range(1, 10) and self.board[move-1] == " ":
-            return True
-        return False
+    while playing:
 
-    def can_win(self, player):
-        win = True
-        for tup in winners:
-            win = True
-            for idx in tup:
-                if self.board[idx] != player:
-                    win = False
-                    break
-            if win == True:
-                break
-        return win
+        os.system("cls" if os.name == "nt" else "clear")
+        draw_board(spots)
 
-    def make_move(self, player, move):
+        if prev_turn == turn:
+            print("Invalid spot selected, please pick another!")
+        prev_turn = turn
+        print("Player "+ str((turn % 2) +1 ) + "`s turn: Pick your spot or press q to quit.")
 
-        if self.can_move(move):
-            self.board[move-1] = player
-            win = self.can_win(player)
-            return(True, win)
-        return (False, False)
-    
-    def computer_move(self):
-        for move in (5, 1, 3, 7, 9, 2, 4, 6, 8):
-            if self.can_move(move):
-                return self.make_move(computer, move)
-        return self.make_move(computer, -1)
+        choice = input()
+        if choice == "q":
+            playing = False
+        elif str.isdigit(choice) and int(choice) in spots:
+            if not spots[int(choice)] in {"X", "O"}:
+                turn += 1
+                spots[int(choice)] = check_turns(turn)
+        if check_for_win(spots): playing, complete = False, True
+        if turn > 8: playing = False
 
-    def play(self):
-    
-     loop = "yes"
-     while loop == "yes":
+    os.system("cls" if os.name == "nt" else "clear")
+    draw_board(spots)
 
-        print("Order is:\n1 2 3\n4 5 6\n7 8 9")
-        print(f"player is {player}, computer is {computer}")
+    if complete: #check for winner
+        if check_turns(turn) == "X": print("Player 1 Wins!")
+        else: print("Player 2 Wins!")
+    else:
+        #tie
+        print("No Winner")
 
-        result = "Tie"
-        while True:
-            if self.board.count(player) + self.board.count(computer) == 9:
-                break
-
-            self.print_board()
-
-            move = int(input("make your move [1-9]: "))
-            moved, won = self.make_move(player, move)
-            if not moved:
-                print("invalid move! try again!")
-                continue
-
-            if won:
-                result = "You win!"
-            
-            _, won = self.computer_move()
-            if won:
-                result = "You lose!"
-                break
-
-        self.print_board()
-        print(result)
-
-        print("You want to give it another try?")
-        loop = input("yes/no")
-     else:
-        print("Allright, your choice...")
